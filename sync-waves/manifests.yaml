@@ -31,6 +31,8 @@ spec:
       containers:
         - name: main
           image: nginx:latest
+        requests:
+          memory: "100Mi"
 ---
 apiVersion: v1
 kind: Service
