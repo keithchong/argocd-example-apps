@@ -23,12 +23,8 @@ spec:
             memory: "150Mi"
         ports:
         - containerPort: 80
-      - name: main
-        image: nginx:latest
-        resources:
-          limits:
-            cpu: "1"
-            memory: "100Mi"
-          requests:
-            cpu: "0.5"
-            memory: "50Mi"
+      - name: nginx-proxy
+        image: nginx:1.19.5
+        ports:
+          - name: https
+            containerPort: 9200
