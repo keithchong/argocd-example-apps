@@ -23,12 +23,12 @@ spec:
             memory: "150Mi"
         ports:
         - containerPort: 80
-      - image: gcr.io/heptio-images/ks-guestbook-demo:0.2
-        name: guestbook-ui2
+      - name: main
+        image: nginx:latest
         resources:
           limits:
+            cpu: "1"
             memory: "100Mi"
           requests:
+            cpu: "0.5"
             memory: "50Mi"
-        ports:
-        - containerPort: 81
