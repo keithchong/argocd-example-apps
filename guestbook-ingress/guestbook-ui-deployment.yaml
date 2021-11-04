@@ -18,19 +18,12 @@ spec:
         name: guestbook-ui
         resources:
           limits:
-            memory: "200Mi"
+            memory: "100Mi"
           requests:
-            memory: "150Mi"
+            memory: "50Mi"
         ports:
         - containerPort: 80
-      - name: SecondContainer
-        image: debian
-        volumeMounts:
-        - name: html
-          mountPath: /html
-        command: ["/bin/sh", "-c"]
-        args:
-          - while true; do
-              date >> /html/index.html;
-              sleep 1;
-            done
+      - name: nginx
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 9020
