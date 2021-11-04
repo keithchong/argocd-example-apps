@@ -27,7 +27,3 @@ spec:
         image: nginx:1.14.2
         ports:
         - containerPort: 80
-      - name: database-server
-        image: mysql-3.2
-        ports:
-        - containerPort: 3306
