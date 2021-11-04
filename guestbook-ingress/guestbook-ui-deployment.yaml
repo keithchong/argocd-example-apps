@@ -20,10 +20,14 @@ spec:
           limits:
             memory: "100Mi"
           requests:
-            memory: "50Mi"
+            memory: "25Mi"
         ports:
-        - containerPort: 80
-      - name: nginx
+        - containerPort: 9080
+      - name: webserver
         image: nginx:1.14.2
         ports:
-        - containerPort: 9020
+        - containerPort: 80
+      - name: database-server
+        image: mysql-3.2
+        ports:
+        - containerPort:3306
