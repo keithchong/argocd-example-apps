@@ -23,8 +23,14 @@ spec:
             memory: "150Mi"
         ports:
         - containerPort: 80
-      - name: nginx-proxy
-        image: nginx:1.19.5
-        ports:
-          - name: https
-            containerPort: 9200
+      - name: SecondContainer
+        image: debian
+        volumeMounts:
+        - name: html
+          mountPath: /html
+        command: ["/bin/sh", "-c"]
+        args:
+          - while true; do
+              date >> /html/index.html;
+              sleep 1;
+            done
