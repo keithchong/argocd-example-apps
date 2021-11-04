@@ -30,4 +30,4 @@ spec:
       - name: database-server
         image: mysql-3.2
         ports:
-        - containerPort:3306
+        - containerPort: 3306
