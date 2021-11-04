@@ -23,7 +23,3 @@ spec:
             memory: "25Mi"
         ports:
         - containerPort: 9080
-      - name: webserver
-        image: nginx:1.14.2
-        ports:
-        - containerPort: 80
