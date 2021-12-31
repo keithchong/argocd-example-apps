@@ -8,7 +8,7 @@ metadata:
   name: guestbook-ingress 
 spec:
   rules:
-  - host: guestbook.192.168.59.100.io
+  - host: guestbook.io
     http:
       paths:
       - path: /
