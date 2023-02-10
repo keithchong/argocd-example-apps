@@ -112,3 +112,13 @@ spec:
           image: alpine:latest
           command: ["sleep", "2"]
       restartPolicy: Never
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "-10"
+  creationTimestamp: null
+  name: mynamespace
+spec: {}
+status: {}
