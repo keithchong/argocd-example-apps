@@ -34,24 +34,6 @@ spec:
         volumeMounts:
         - mountPath: /tmp
           name: tmp-volume
-      - name: user-db2
-        image: weaveworksdemos/user-db:0.3.0
-
-        ports:
-        - name: mongo
-          containerPort: 27018
-        securityContext:
-          capabilities:
-            drop:
-              - all
-            add:
-              - CHOWN
-              - SETGID
-              - SETUID
-          readOnlyRootFilesystem: true
-        volumeMounts:
-        - mountPath: /tmp
-          name: tmp-volume
       volumes:
         - name: tmp-volume
           emptyDir:
