@@ -13,7 +13,7 @@ spec:
         app: nodejs-hello-world
     spec:
       containers:
-      - image: pvermeyden/nodejs-hello-world
+      - image: heroku/nodejs-hello-world
         name: nodejs-hello-world
         ports:
         - containerPort: 80
