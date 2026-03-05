@@ -49,7 +49,7 @@ spec:
     spec:
       project: default
       source:
-        repoURL: https://github.com/keithchong/gitops-examples
+        repoURL: https://github.com/keithchong/argocd-example-apps
         targetRevision: HEAD
         path: appsets/list-generator/guestbook/{{.cluster}}
       destination:
