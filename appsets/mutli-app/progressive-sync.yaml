@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: appsetps
+  name: appset-multi-ps
   namespace: openshift-gitops
 spec:
   generators:
@@ -52,7 +52,7 @@ spec:
   goTemplateOptions: ['missingkey=error']
   template:
     metadata:
-      name: '{{.cluster}}-appsetps'
+      name: '{{.cluster}}-appset-multi-ps'
       labels:
         envLabel: '{{.env}}'
     spec:
@@ -60,7 +60,7 @@ spec:
       source:
         repoURL: https://github.com/keithchong/argocd-example-apps
         targetRevision: HEAD
-        path: appsets/list-generator/guestbook/{{.cluster}}
+        path: appsets/multi-app/guestbook/{{.cluster}}
       destination:
         server: '{{.url}}'
         namespace: openshift-gitops
