@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: addressbook-ui-5
+  namespace: openshift-gitops
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: addressbook-ui-5
+  template:
+    metadata:
+      labels:
+        app: addressbook-ui-5
+    spec:
+      containers:
+      - image: quay.io/argoprojlabs/argocd-e2e-container:0.2
+        name: addressbook-ui-5
+        ports:
+        - containerPort: 80
