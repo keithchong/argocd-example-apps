@@ -57,10 +57,13 @@ spec:
         envLabel: '{{.env}}'
     spec:
       project: default
-      source:
-        repoURL: https://github.com/keithchong/argocd-example-apps
-        targetRevision: HEAD
-        path: appsets/multi-app/guestbook/{{.cluster}}
+      sources:
+        - repoURL: https://github.com/keithchong/argocd-example-apps
+          targetRevision: HEAD
+          path: appsets/multi-app/guestbook/{{.cluster}}
+        - repoURL: https://github.com/keithchong/argocd-example-apps
+          targetRevision: HEAD
+          path: appsets/multi-app/sync-waves/{{.cluster}}
       destination:
         server: '{{.url}}'
         namespace: openshift-gitops

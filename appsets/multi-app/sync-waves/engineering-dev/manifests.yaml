@@ -1,0 +1,121 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  generateName: upgrade-sql-schema-1
+  namespace: openshift-gitops
+  annotations:
+    argocd.argoproj.io/hook: PreSync
+spec:
+  template:
+    spec:
+      containers:
+        - name: upgrade-sql-schema-1
+          image: alpine:latest
+          command: ["sleep", "5"]
+      restartPolicy: Never
+---
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: backend-1
+  namespace: openshift-gitops
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      tier: backend-1
+  template:
+    metadata:
+      labels:
+        tier: backend-1
+    spec:
+      containers:
+        - name: main
+          image: nginx:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-1
+  namespace: openshift-gitops
+spec:
+  selector:
+    tier: backend-1
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: maint-page-up-1
+  namespace: openshift-gitops
+  annotations:
+    argocd.argoproj.io/hook: Sync
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  template:
+    spec:
+      containers:
+        - name: page-up
+          image: alpine:latest
+          command: ["sleep", "2"]
+      restartPolicy: Never
+  backoffLimit: 0
+---
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: frontend-1
+  namespace: openshift-gitops
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      tier: frontend-1
+  template:
+    metadata:
+      labels:
+        tier: frontend-1
+    spec:
+      containers:
+        - name: main
+          image: nginx:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-1
+  namespace: openshift-gitops
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+spec:
+  selector:
+    tier: frontend-1
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: maint-page-down-1
+  namespace: openshift-gitops
+  annotations:
+    argocd.argoproj.io/hook: Sync
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+    argocd.argoproj.io/sync-wave: "3"
+spec:
+  template:
+    spec:
+      containers:
+        - name: page-down
+          image: alpine:latest
+          command: ["sleep", "2"]
+      restartPolicy: Never
